@@ -15,3 +15,6 @@ nanonisInstance.returnDebugInfo(1)
 
 nanonisInstance.Bias_Get()
 nanonisInstance.Bias_Set(4.0)
+
+nanonisInstance.FolMe_XYPosGet(True)
+nanonisInstance.FolMe_XYPosSet(1e-9, 1e-9, True)
