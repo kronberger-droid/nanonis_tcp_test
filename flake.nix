@@ -45,11 +45,14 @@
         (pkgs.python3.withPackages (python-pkgs: with python-pkgs; [
           python-lsp-server
           nanonis-spm
+          matplotlib
+          numpy
+
         ]))
         pkgs.nushell
       ];
       shellHook = ''
-        nu --login
+        exec nu --login
       '';
     };
   };
