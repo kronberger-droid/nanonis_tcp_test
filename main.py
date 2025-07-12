@@ -13,18 +13,5 @@ import nanonis_spm_examples
 # nanonis_spm_examples.Example_AutoApproach
 nanonisInstance.returnDebugInfo(1)
 
-loops = 20
-steps = 2000
-
-for loop in range(loops):
-    nanonisInstance.Motor_StartMove(1, steps, 0, 1)  # Axis 1=X, positive direction, wait=1
-    time.sleep(0.5)
-    
-    nanonisInstance.Motor_StartMove(2, steps, 0, 1)  # Axis 2=Y, positive direction, wait=1
-    time.sleep(0.5)
-    
-    nanonisInstance.Motor_StartMove(1, steps, 1, 1)  # Axis 1=X, negative direction, wait=1
-    time.sleep(0.5)
-    
-    nanonisInstance.Motor_StartMove(2, steps, 1, 1)  # Axis 2=Y, negative direction, wait=1
-    time.sleep(0.5)
+nanonisInstance.Bias_Get()
+nanonisInstance.Bias_Set(4.0)
