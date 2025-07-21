@@ -1,2 +1,6 @@
 nanonis_spm/
 nanonis_spm-*/
+
+# Rust
+/nanonis_rust/target/
+/nanonis_rust/Cargo.lock
