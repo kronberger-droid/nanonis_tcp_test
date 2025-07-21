@@ -1,16 +1,22 @@
 import time
 import numpy as np
+import random
 from nanonis_client import NanonisConnection
 
 with NanonisConnection() as nanonis:
-  
-    # nanonis.auto_approach_and_wait()
-   
-    nanonis.returnDebugInfo(1)
-
-    print(nanonis.FolMe_SpeedGet())
+    # nanonis.returnDebugInfo(1)
 
     nanonis.FolMe_SpeedSet(3e-9, 1)
-    nanonis.FolMe_XYPosSet(0e-9, 0e-9, 0)
-    nanonis.FolMe_XYPosGet(0)
-    nanonis.FolMe_XYPosSet(5e-9, 5e-9, 0)
+
+    x_pos = random.uniform(0e-9, 10e-9)
+    y_pos = random.uniform(0e-9, 10e-9)
+
+    print(f"Moving to x: {x_pos} y: {y_pos}")
+    nanonis.FolMe_XYPosSet(x_pos, y_pos, 0)
+
+    nanonis.Bias_Pulse(1, 1, 4, 0, 0)
+
+
+    print(nanonis.Signals_NamesGet())
+
+    
