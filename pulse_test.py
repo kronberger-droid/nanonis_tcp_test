@@ -16,7 +16,5 @@ with NanonisConnection() as nanonis:
 
     nanonis.Bias_Pulse(1, 1, 4, 0, 0)
 
+    nanonis.Motor_StepCounterGet(0, 0, 0)
 
-    print(nanonis.Signals_NamesGet())
-
-    

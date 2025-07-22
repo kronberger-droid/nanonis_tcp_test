@@ -52,7 +52,6 @@
         pkgs.nushell
       ];
       shellHook = ''
-        [ ! -d "nanonis_spm" ] && git clone https://github.com/SPECS-Zurich-GmbH/nanonis_spm.git
         exec nu --login
       '';
     };
