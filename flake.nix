@@ -40,20 +40,39 @@
     };
   in
   {
-    devShells.${system}.default = pkgs.mkShell {
-      buildInputs = [
-        (pkgs.python3.withPackages (python-pkgs: with python-pkgs; [
-          python-lsp-server
-          nanonis-spm
-          matplotlib
-          numpy
-          pip
-        ]))
-        pkgs.nushell
-      ];
-      shellHook = ''
-        exec nu --login
-      '';
+    devShells.${system} = {
+      default = pkgs.mkShell {
+        buildInputs = [
+          (pkgs.python3.withPackages (python-pkgs: with python-pkgs; [
+            python-lsp-server
+            nanonis-spm
+            matplotlib
+            numpy
+            pip
+          ]))
+          pkgs.nushell
+        ];
+        shellHook = ''
+          exec nu --login
+        '';
+      };
+      
+      dev = pkgs.mkShell {
+        buildInputs = [
+          (pkgs.python3.withPackages (python-pkgs: with python-pkgs; [
+            python-lsp-server
+            nanonis-spm
+            matplotlib
+            numpy
+            pip
+          ]))
+        ];
+        shellHook = ''
+          echo "Python development environment ready!"
+          echo "Python path: $(which python)"
+          echo "Available packages: nanonis-spm, matplotlib, numpy"
+        '';
+      };
     };
   };
 }
