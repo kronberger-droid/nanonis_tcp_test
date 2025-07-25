@@ -8,7 +8,6 @@
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
     
-    # Custom Python package derivation
     nanonis-spm = pkgs.python3Packages.buildPythonPackage rec {
       pname = "nanonis-spm";
       version = "1.0.8";
@@ -24,13 +23,9 @@
         hatchling
       ];
       
-      # Dependencies based on what we know from the description
       dependencies = with pkgs.python3Packages; [
         numpy
       ];
-      
-      # Skip tests if they're problematic
-      doCheck = false;
       
       meta = with pkgs.lib; {
         description = "Python package for controlling Nanonis SPM software through Python";
@@ -51,6 +46,7 @@
             pip
           ]))
           pkgs.nushell
+          pkgs.helix
         ];
         shellHook = ''
           exec nu --login
@@ -67,11 +63,6 @@
             pip
           ]))
         ];
-        shellHook = ''
-          echo "Python development environment ready!"
-          echo "Python path: $(which python)"
-          echo "Available packages: nanonis-spm, matplotlib, numpy"
-        '';
       };
     };
   };
