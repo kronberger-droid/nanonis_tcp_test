@@ -6,54 +6,17 @@ Uses bias voltage and Z position signals for decision making.
 
 import time
 import threading
-from nanonis_client import NanonisConnection
+from nanonis_control import NanonisConnection
 
+BIAS_IDX = 24
+Z_IDX = 30
 
-def find_signal_indices(nanonis):
-    """Helper function to find bias and Z(m) signal indices."""
-    signals = nanonis.get_available_signals()
-    if not signals:
-        print("Warning: Could not get signal list, using default indices")
-        return {"bias": 24, "z_pos": 8}  # Common defaults
-    
-    indices = {}
-    
-    # Look for bias voltage signal
-    for i, signal in enumerate(signals):
-        signal_lower = signal.lower()
-        if "bias" in signal_lower:
-            indices["bias"] = i
-            break
-    else:
-        indices["bias"] = 24  # Default fallback
-    
-    # Look for Z position signal (Z (m), Z position, etc.)
-    for i, signal in enumerate(signals):
-        signal_lower = signal.lower()  
-        if "z" in signal_lower and ("(m)" in signal_lower or "pos" in signal_lower):
-            indices["z_pos"] = i
-            break
-        elif signal_lower.startswith("z ") or signal_lower == "z":
-            indices["z_pos"] = i
-            break
-    else:
-        indices["z_pos"] = 8  # Default fallback
-    
-    print(f"Found signals - Bias: '{signals[indices['bias']]}' (index {indices['bias']}), Z: '{signals[indices['z_pos']]}' (index {indices['z_pos']})")
-    return indices
-
+BIAS_RANGE = (0, 2.0)
+Z_RANGE = (-500e-9, 400e-9)
 
 def decision_making_thread(control_nanonis, signal_indices):
     """Simple decision thread that checks if signals are within acceptable bounds."""
     print("Decision thread started - monitoring signal bounds")
-    
-    bias_idx = signal_indices["bias"]
-    z_idx = signal_indices["z_pos"]
-    
-    # Simple bounds checking - adjust these based on your needs
-    bias_min, bias_max = 0, 2.0      # Acceptable bias range (V)
-    z_min, z_max = -500e-9, 400e-9          # Acceptable Z range (m)
-    
     while True:
         try:
             # Get current means from the monitoring connection
