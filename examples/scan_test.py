@@ -2,7 +2,7 @@ import time
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-from nanonis_client import NanonisConnection
+from nanonis_control import NanonisConnection
 
 with NanonisConnection() as nanonis:
     # Start auto-approach and wait for completion
