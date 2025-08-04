@@ -44,6 +44,8 @@
             matplotlib
             numpy
             pip
+            h5py
+            jupyter
           ]))
           pkgs.nushell
           pkgs.helix
